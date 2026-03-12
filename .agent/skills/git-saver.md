@@ -5,43 +5,43 @@ description: Safely and systematically stages, commits, and pushes changes to a 
 
 # Git Saver Skill
 
+Use this skill whenever a user requests to track, save, or distribute code changes via version control. It enforces a systematic review of changes before committing to prevent mistakes.
+
 ## When to use this skill
 - Whenever a user asks to "save changes to git," "commit my work," "push this to the repo," or "version control this."
 - After completing a significant feature block, bug fix, or documentation update and the user confirms it's ready to be saved.
 - When generating conventional commits or structured commit messages based on recent repository changes.
 
-## How to use it
-1. **Assess the Current Git State:**
-    - Use `git status` to identify modified, untracked, or deleted files.
-    - Use `git diff` or `git diff --staged` to review the actual content changes. This ensures the commit message will accurately reflect the work done.
+## Core Principles
+- **Robustness:** Never blindly stage all files (`git add .`) without first verifying exactly what has changed to prevent sensitive files (like `.env`) from leaking.
+- **Clarity:** Ensure commit messages adhere strictly to the Conventional Commits specification, allowing automated changelog generation.
+- **Agnosticism:** Assume a standard Git CLI environment, avoiding reliance on specific GUI wrappers unless requested.
 
-2. **Stage the Changes:**
-    - Use `git add <file>` to stage specific files if the user only wants to commit certain changes.
-    - Use `git add .` or `git add -A` only if the user explicitly wants to stage *all* modifications in the working directory. Be cautious of staging sensitive files (like `.env` or temporary logs) not included in `.gitignore`.
+## How to use it (Step-by-Step)
 
-3. **Generate a Conventional Commit Message:**
-    - Analyze the staged changes to determine the nature of the work.
-    - Format the commit message according to Conventional Commits standards (e.g., `type(scope): subject`).
-    - **Types:**
-        - `feat:` A new feature.
-        - `fix:` A bug fix.
-        - `docs:` Documentation only changes.
-        - `style:` Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
-        - `refactor:` A code change that neither fixes a bug nor adds a feature.
-        - `perf:` A code change that improves performance.
-        - `test:` Adding missing tests or correcting existing tests.
-        - `chore:` Changes to the build process or auxiliary tools and libraries such as documentation generation.
+### Phase 1: Analysis & Gathering
+1. **Assess State:** Use `git status` to identify modified, untracked, or deleted files.
+2. **Review Diffs:** Use `git diff` or `git diff --staged` to review the actual code changes. Ensure you understand the holistic scope of the work to be committed.
+
+### Phase 2: Scaffolding & Execution
+1. **Stage Changes:** 
+    - Use `git add <file>` to cautiously stage specific intended files.
+    - Only use `git add .` if you have verified that no sensitive or temporary files are untracked and lacking a `.gitignore` entry.
+2. **Draft Message:** Formulate the message using the Conventional Commits format (`type(scope): subject`).
+    - **Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`.
     - **Subject:** A brief summary (under 50 characters), imperative mood, no capitalization at the start, no period at the end.
-    - Optional: Add a detailed body if the changes are complex, explaining the *why* and *how*.
+3. **Commit:** Execute `git commit -m "type(scope): subject" -m "Optional detailed body explaining why."`
+4. **Push (If appropriate):** Execute `git push origin <branch_name>` or `git push -u origin <branch_name>` if tracking is missing.
 
-4. **Commit the Changes:**
-    - Execute `git commit -m "type(scope): subject" -m "Optional body explaining the details."`
-    - Verify the commit was successful using `git log -1`.
+### Phase 3: Validation & Review
+1. **Verification:** Execute `git log -1` to confirm the commit was recorded accurately in the local history.
+2. **Delivery:** Briefly summarize to the user what was staged, the commit message applied, and if it was successfully pushed.
 
-5. **Push the Changes (If Requested/Appropriate):**
-    - Check the current branch and remote status (`git remote -v`, `git branch -a`).
-    - Execute `git push origin <branch_name>`.
-    - If the branch is new, use `git push -u origin <branch_name>`.
+## Contingencies & Edge Cases
+- **Merge Conflicts:** If a `git push` fails due to remote changes, immediately stop the workflow, fetch the latest changes, and inform the user that a pull/rebase is required to resolve conflicts before proceeding.
+- **Accidental Staging:** If you notice an `.env` or temporary file was accidentally added during `git status`, use `git restore --staged <file>` to unstage it before committing.
+- **Detached HEAD:** If the repository is in a detached HEAD state, stop and warn the user. Ask if they want to create a new branch containing the commit.
 
-6. **Provide Feedback:**
-    - Briefly summarize to the user what was staged, the commit message used, and whether it was successfully pushed to the remote repository.
+## Specifications & Constraints
+- Commit summaries must not exceed 50 characters.
+- Must not bypass pre-commit hooks unless explicitly instructed by the user using `--no-verify`.
