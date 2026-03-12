@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Purrfect Adoption Center</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="glass-nav">
+        <div class="logo">
+            <span class="logo-icon" aria-hidden="true">🐱</span>
+            <h1>PurrfectAdoptees</h1>
+        </div>
+        <nav aria-label="Main Navigation">
+            <ul class="nav-links">
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#cats">Available Cats</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle" class="btn secondary" aria-label="Toggle Dark Mode">🌙</button>
+    </header>
+
+    <main>
+        <section class="hero responsive-grid">
+            <div class="hero-text">
+                <h2>Find Your Next Feline Overlord.</h2>
+                <p>Browse our database of rescued cats ready for their forever homes. Adopt, don't shop!</p>
+                <div class="cta-group">
+                    <button class="btn primary" id="adopt-btn">View Cats</button>
+                    <button class="btn accent" id="secret-btn" aria-hidden="true" tabindex="-1">Chase Laser</button>
+                </div>
+            </div>
+            <div class="hero-graphic">
+                <picture>
+                    <source srcset="https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" media="(min-width: 768px)">
+                    <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="An adorable ginger cat peering curiously at the camera">
+                </picture>
+            </div>
+        </section>
+
+        <!-- Fact Banner -->
+        <div class="fact-banner" aria-live="polite">
+            <span class="badge">Did you know?</span>
+            <span id="fact-text">Fetching feline wisdom...</span>
+        </div>
+
+        <!-- New About Us Section -->
+        <section id="about" class="content-section">
+            <div class="container text-center">
+                <h2>About Us</h2>
+                <p>We aren't just kitten around; we take feline adoption very seriously! At PurrfectAdoptees, we believe every cat deserves a home that's the cat's meow. Our volunteers work claws out, day and night, to ensure these meow-nificent creatures find their forever humans.</p>
+                <p>Don't be a sourpuss, scroll down to meet your new best friend before the opportunity is hiss-tory!</p>
+            </div>
+        </section>
+
+        <section id="cats" class="database-preview">
+            <h3>Recent Arrivals</h3>
+            <div class="cat-grid" id="cat-grid-container">
+                <!-- Dynamically populated via JS/SQL data mock -->
+            </div>
+        </section>
+
+        <!-- New Contact Section -->
+        <section id="contact" class="content-section">
+            <div class="container text-center">
+                <h2>Contact Us</h2>
+                <p>Got questions? We're all ears (and whiskers). Give us a call at <strong>1-800-MEOW-NOW</strong>.</p>
+                <p>Feeling anti-social? Drop us a line at <em>litterally.the.best.refuge@purrfect.org</em>, and we'll paws our current tasks to get back to you fur-real!</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PurrfectAdoptees. All rights reserved.</p>
+    </footer>
+
+    <!-- Hidden Game Container -->
+    <div id="game-overlay" class="hidden" aria-hidden="true">
+        <div class="game-header">
+            <h4>Laser Chaser 3000</h4>
+            <button id="close-game" class="btn secondary">Exit Game</button>
+        </div>
+        <canvas id="game-canvas"></canvas>
+    </div>
+
+    <script defer src="script.js"></script>
+</body>
+</html>
