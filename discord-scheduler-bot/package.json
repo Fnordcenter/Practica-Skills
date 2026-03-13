@@ -1,0 +1,19 @@
+{
+  "name": "discord-scheduler-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dayjs": "^1.11.20",
+    "discord.js": "^14.25.1",
+    "dotenv": "^17.3.1",
+    "node-schedule": "^2.1.1"
+  }
+}
